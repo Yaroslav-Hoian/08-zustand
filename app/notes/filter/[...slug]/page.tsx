@@ -5,12 +5,37 @@ import {
 } from "@tanstack/react-query";
 import fetchNotes from "@/lib/api";
 import NoteClient from "./Notes.client";
+import type { Metadata } from "next";
 
 const debouncedSearch = "";
 const page = 1;
 
 interface NoteDetailsProps {
   params: Promise<{ slug?: string[] }>;
+}
+
+export async function generateMetadata({
+  params,
+}: NoteDetailsProps): Promise<Metadata> {
+  const { slug = [] } = await params;
+  const tag = !slug.length || slug[0] === "All" ? undefined : slug[0];
+  return {
+    title: `Notes cstegory ${tag}Note Hub`,
+    description: `Browse all notes with the "${tag}" tag in Note Hub.`,
+    openGraph: {
+      title: `Notes cstegory ${tag}Note Hub`,
+      description: `Browse all notes with the "${tag}" tag in Note Hub.`,
+      url: `https://notehub.com/notes/filter/${tag}`,
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: 1200,
+          height: 630,
+          alt: "Note Hub",
+        },
+      ],
+    },
+  };
 }
 
 const NoteDetails = async ({ params }: NoteDetailsProps) => {
