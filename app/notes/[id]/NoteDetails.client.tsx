@@ -1,12 +1,13 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import css from "./NoteDetails.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
 import style from "../../loading.module.css";
 
 const NoteDetailsClient = () => {
+  const router = useRouter();
   const { id } = useParams<{ id: string }>();
 
   const {
@@ -34,6 +35,16 @@ const NoteDetailsClient = () => {
         </div>
         <p className={css.content}>{note.content}</p>
         <p className={css.date}>{note.createdAt}</p>
+        <p className={css.tag}>{note.tag}</p>
+        <div className={css.btnBox}>
+          <button
+            onClick={() => router.back()}
+            type="button"
+            className={css.cancelButton}
+          >
+            Back
+          </button>
+        </div>
       </div>
     </div>
   );

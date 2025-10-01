@@ -6,16 +6,14 @@ import fetchNotes from "../../../../lib/api";
 import NoteList from "../../../../components/NoteList/NoteList";
 import { useEffect, useState } from "react";
 import Pagination from "../../../../components/Pagination/Pagination";
-import Modal from "../../../../components/Modal/Modal";
 import SearchBox from "../../../../components/SearchBox/SearchBox";
 import { useDebounce } from "use-debounce";
 import toast, { Toaster } from "react-hot-toast";
-import NoteForm from "../../../../components/NoteForm/NoteForm";
+import Link from "next/link";
 
 const NoteClient = ({ tag }: { tag?: string }) => {
   const [noteWordSearch, setNoteWordSearch] = useState<string>("");
   const [page, setPage] = useState(1);
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [debouncedSearch] = useDebounce(noteWordSearch, 1000);
 
   const { data, isSuccess } = useQuery({
@@ -29,14 +27,6 @@ const NoteClient = ({ tag }: { tag?: string }) => {
       toast.error("No notes found for your request.");
     }
   }, [data]);
-
-  const handleOpenModal = () => {
-    setIsOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
-  };
 
   return (
     <div className={css.app}>
@@ -56,15 +46,10 @@ const NoteClient = ({ tag }: { tag?: string }) => {
             onPageChange={(newPage) => setPage(newPage)}
           />
         )}
-        <button className={css.button} onClick={handleOpenModal}>
-          Create note +
-        </button>
+        <Link href="/notes/action/create">
+          <button className={css.button}>Create note +</button>
+        </Link>
       </div>
-      {isOpenModal && (
-        <Modal onClose={handleCloseModal}>
-          <NoteForm onClose={handleCloseModal} />
-        </Modal>
-      )}
       {isSuccess && data?.notes.length > 0 && <NoteList notes={data?.notes} />}
     </div>
   );
