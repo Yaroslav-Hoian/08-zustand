@@ -54,6 +54,8 @@ const NoteForm = () => {
           type="text"
           name="title"
           className={css.input}
+          minLength={3}
+          maxLength={50}
           required
           defaultValue={draft?.title}
           onChange={handleChange}
@@ -67,6 +69,7 @@ const NoteForm = () => {
           name="content"
           rows={8}
           className={css.textarea}
+          maxLength={500}
           defaultValue={draft?.content}
           onChange={handleChange}
         />

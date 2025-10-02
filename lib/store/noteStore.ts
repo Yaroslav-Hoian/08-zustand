@@ -1,19 +1,14 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface NoteDraft {
-  title: string;
-  content: string;
-  tag: string;
-}
+import { createNoteProps } from "../api";
 
 interface NoteDraftStore {
-  draft: NoteDraft;
-  setDraft: (note: NoteDraft) => void;
+  draft: createNoteProps;
+  setDraft: (note: createNoteProps) => void;
   clearDraft: () => void;
 }
 
-const initialDraft: NoteDraft = {
+const initialDraft: createNoteProps = {
   title: "",
   content: "",
   tag: "Todo",

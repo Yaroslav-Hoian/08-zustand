@@ -9,7 +9,7 @@ interface fetchNotesProps {
   totalPages: number;
 }
 
-interface createNoteProps {
+export interface createNoteProps {
   title: string;
   content: string;
   tag: NoteTags;
