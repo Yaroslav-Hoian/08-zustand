@@ -37,7 +37,7 @@ const NoteForm = () => {
       clearDraft();
       queryClient.invalidateQueries({ queryKey: ["noteHubKey"] });
       toast.success("Success! Your note has been added.");
-      router.push("/notes/filter/All");
+      router.back();
     },
   });
 
