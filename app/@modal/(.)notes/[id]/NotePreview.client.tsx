@@ -41,9 +41,12 @@ const NotePreviewDetails = () => {
           </div>
           <p className={css.content}>{note.content}</p>
           <p className={css.date}>{note.createdAt}</p>
-          <button className={css.backBtn} type="button" onClick={close}>
-            Back
-          </button>
+          <p className={css.tag}>{note.tag}</p>
+          <div className={css.btnBox}>
+            <button className={css.backBtn} type="button" onClick={close}>
+              Back
+            </button>
+          </div>
         </div>
       </div>
     </Modal>
