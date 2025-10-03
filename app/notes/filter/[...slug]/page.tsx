@@ -11,7 +11,7 @@ const debouncedSearch = "";
 const page = 1;
 
 interface NoteDetailsProps {
-  params: Promise<{ slug?: string[] }>;
+  params: Promise<{ slug: string[] }>;
 }
 
 export async function generateMetadata({
@@ -20,12 +20,16 @@ export async function generateMetadata({
   const { slug = [] } = await params;
   const tag = !slug.length || slug[0] === "All" ? undefined : slug[0];
   return {
-    title: `Notes cstegory ${tag}Note Hub`,
-    description: `Browse all notes with the "${tag}" tag in Note Hub.`,
+    title: tag ? `Notes category ${tag} | Note Hub` : `All notes | Note Hub`,
+    description: tag
+      ? `Browse all notes with the "${tag}" tag in Note Hub.`
+      : `Browse all your notes in Note Hub.`,
     openGraph: {
-      title: `Notes cstegory ${tag}Note Hub`,
-      description: `Browse all notes with the "${tag}" tag in Note Hub.`,
-      url: `https://08-zustand-orcin-five.vercel.app/notes/filter/${tag}`,
+      title: tag ? `Notes category ${tag} | Note Hub` : `All notes | Note Hub`,
+      description: tag
+        ? `Browse all notes with the "${tag}" tag in Note Hub.`
+        : `Browse all your notes in Note Hub.`,
+      url: `https://08-zustand-orcin-five.vercel.app/notes/filter/${slug[0]}`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
